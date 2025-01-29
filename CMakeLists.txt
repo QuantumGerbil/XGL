@@ -14,6 +14,9 @@ add_link_options(-fuse-ld=lld -Wl,--color-diagnostics -fdiagnostics-color)
 
 find_package(SDL2 REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
+link_libraries(${GLEW_LIBRARIES})
 find_file(SDL2_INCLUDE_DIR NAME SDL.h HINTS SDL2)
 find_library(SDL2_LIBRARY NAME SDL2)
 
@@ -31,7 +34,7 @@ file(GLOB SOURCE_FILES CONFIGURE_DEPENDS "${CMAKE_SOURCE_DIR}/src/*.cpp")
 add_executable(main)
 #target_include_directories(main ${SDL2_INCLUDE_DIR})
 target_sources(main
-  PRIVATE src/main.cpp)
+  PRIVATE src/main.cpp src/shader.cpp)
 target_link_libraries(main PRIVATE SDL2::SDL2 OpenGL::GL
 #  PRIVATE XGL
 )
